@@ -2,13 +2,13 @@ import *  as NasaAPI from '../../api/nasaAPI'
 import * as React from 'react'
 import { Component } from 'react'
 import SearchInput from './SearchInput'
-import NasaData from './NasaData'
+import NasaDataOutput from './NasaDataOutput'
 
 class Search extends Component{
   constructor(props){
     super(props)
     this.state = { 
-      nasaData: []
+      nasaData: null
     }
     this.getImagesFromNasa = this.getImagesFromNasa.bind(this)
   }
@@ -19,14 +19,14 @@ class Search extends Component{
         this.setState({nasaData: data}) 
     }) 
   }
-  
+
   render(){
     return(
     <div>
       <SearchInput
         onGetImages = { this.getImagesFromNasa }
       />
-      <NasaData
+      <NasaDataOutput
         nasaData = { this.state.nasaData }
       />
     </div>

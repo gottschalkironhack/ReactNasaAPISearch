@@ -2,14 +2,18 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 var dateFormat = require('dateformat')
 
-class NasaData extends Component{
+class NasaDataOutput extends Component{
   
   render(){
-    let filteredNasaData = this.props.nasaData.filter(function(dataItem){
+    let filteredNasaData = this.props.nasaData === null ? null : this.props.nasaData.filter(function(dataItem){
       return dataItem.links != undefined && dataItem.links[0].href.substring(dataItem.links[0].href.length - 3, dataItem.links[0].href.length) === 'jpg'
     })
 
-    if(this.props.nasaData.length > 0){
+    if(filteredNasaData === null){
+      return null
+    }
+    
+    else if(filteredNasaData.length > 0){
       return(
         <div className='col-8 m-auto'>
           <div className='card-columns'>
@@ -26,14 +30,18 @@ class NasaData extends Component{
           </div>
         </div>
       )
-    }else{
-      return null
+    }else if(filteredNasaData.length === 0){
+      return (
+        <div className='text-white'>
+          There were no images found for your search term
+        </div>
+      )
     }
   }
 }
 
-NasaData.propTypes = {
+NasaDataOutput.propTypes = {
   nasaData: PropTypes.array
 }
 
-export default NasaData
+export default NasaDataOutput
