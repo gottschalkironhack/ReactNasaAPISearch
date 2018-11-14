@@ -11,6 +11,7 @@ class SearchInput extends Component{
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
+    this.onFocusHandler = this.onFocusHandler.bind(this)
   }
 
   handleSubmit(event){
@@ -27,12 +28,22 @@ class SearchInput extends Component{
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  onFocusHandler(event){
+    this.setState({ [event.target.name]: '' })
+  }
+
   render(){
     return(
     <div className='mb-4'>
       <form className='text-center' onSubmit={ this.handleSubmit }>
         <div className='form-group text-center' >
-          <input name='inputValue' className='col-8 text-center m-auto mb-4 mt-4 form-control form-control-lg rounded' aria-describedby='Search Nasa Database' placeholder='Search Nasa Database' onChange = {this.onChangeHandler} value={this.state.inputValue}></input>
+          <input name='inputValue' 
+            className='col-8 text-center m-auto mb-4 mt-4 form-control form-control-lg rounded' 
+            aria-describedby='Search Nasa Database' 
+            placeholder='Search Nasa Database'
+            onChange = { this.onChangeHandler } 
+            onFocus  = { this.onFocusHandler }
+            value = { this.state.inputValue }/>
         </div>
         {this.state.inputError ? (<div className='mb-4'>{ this.state.inputError }</div>) : null}
         <button className='btn btn-primary' type='submit'>SUBMIT</button>
